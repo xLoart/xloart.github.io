@@ -44,7 +44,14 @@ function gameLoop(timestamp) {
     requestAnimationFrame(gameLoop);
 }
 
+import { wave1, wave2 } from './waves.js';
+
+let enemies = [...wave1.enemies, ...wave2.enemies];
+
 function update() {
+    enemies.forEach(enemy => {
+        enemy.moveTowards(player.x, player.y);
+    });
     if (keys['ArrowUp'] || keys['w']) player.y -= player.speed;
     if (keys['ArrowDown'] || keys['s']) player.y += player.speed;
     if (keys['ArrowLeft'] || keys['a']) player.x -= player.speed;
@@ -72,7 +79,11 @@ function draw() {
         ctx.fillRect(proj.x - 2, proj.y - 2, 4, 4);
     });
 
-    // Draw direction arrow
+    // Draw enemies
+    enemies.forEach(enemy => {
+        ctx.fillStyle = enemy.color;
+        ctx.fillRect(enemy.x - 10, enemy.y - 10, 20, 20);
+    });
     const angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
     ctx.strokeStyle = 'yellow';
     ctx.beginPath();

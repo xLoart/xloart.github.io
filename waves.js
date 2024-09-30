@@ -14,15 +14,15 @@ class Wave {
 }
 
 const wave1 = new Wave([
-    new Enemy(100, 100, 100, 2),
-    new Enemy(200, 100, 100, 2),
-    new Enemy(300, 100, 100, 2)
+    new Enemy(100, 100, 100, 2, 'red'),
+    new Enemy(200, 100, 100, 2, 'green'),
+    new Enemy(300, 100, 100, 2, 'blue')
 ]);
 
 const wave2 = new Wave([
-    new Enemy(100, 100, 150, 3),
-    new Enemy(200, 100, 150, 3),
-    new Enemy(300, 100, 150, 3)
+    new Enemy(100, 100, 150, 3, 'yellow'),
+    new Enemy(200, 100, 150, 3, 'purple'),
+    new Enemy(300, 100, 150, 3, 'orange')
 ]);
 
 export { wave1, wave2 };

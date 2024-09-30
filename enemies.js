@@ -1,9 +1,10 @@
 class Enemy {
-    constructor(x, y, health, speed) {
+    constructor(x, y, health, speed, color) {
         this.x = x;
         this.y = y;
         this.health = health;
         this.speed = speed;
+        this.color = color;
     }
 
     moveTowards(targetX, targetY) {
