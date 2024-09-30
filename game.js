@@ -7,13 +7,13 @@ let keys = {};
 let mouse = { x: 0, y: 0 };
 let lastSaveTime = 0;
 
-function startNewGame() {
+window.startNewGame = function() {
     document.getElementById('menu').style.display = 'none';
     canvas.style.display = 'block';
     requestAnimationFrame(gameLoop);
 }
 
-function loadGame() {
+window.loadGame = function() {
     const savedData = localStorage.getItem('gameState');
     if (savedData) {
         const state = JSON.parse(savedData);
@@ -23,7 +23,7 @@ function loadGame() {
     startNewGame();
 }
 
-function showOptions() {
+window.showOptions = function() {
     alert('Options are not implemented yet.');
 }
 
