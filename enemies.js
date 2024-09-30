@@ -40,6 +40,7 @@ function createEnemy(id, x, y, waveNumber) {
         console.error(`Enemy definition not found for ID: ${id}`);
         return null; // Return null if the definition is not found
     }
+    console.log(`Creating enemy with ID: ${id}, Position: (${x}, ${y}), Definition:`, def);
     const healthMultiplier = 1 + Math.log(waveNumber + 1) * 0.05; // Logarithmic scaling for health
     const speedMultiplier = 1 + waveNumber * 0.02; // Linear scaling for speed
     const strengthMultiplier = 1 + waveNumber * 0.03; // Linear scaling for strength
