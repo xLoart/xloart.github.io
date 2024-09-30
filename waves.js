@@ -35,13 +35,24 @@ class Wave {
 
 function initializeWaves(player) {
     const waves = [];
+    const enemyProgression = [
+        { id: 1, untilWave: 5 },  // Red enemies until wave 5
+        { id: 2, untilWave: 10 }, // Green enemies start appearing until wave 10
+        { id: 3, untilWave: 15 }, // Blue enemies start appearing until wave 15
+        { id: 4, untilWave: 20 }, // Yellow enemies start appearing until wave 20
+        { id: 5, untilWave: 25 }, // Purple enemies start appearing until wave 25
+        { id: 6, untilWave: 30 }  // Orange enemies start appearing until wave 30
+    ];
+
     for (let i = 0; i < 50; i++) {
         const enemyConfigs = [];
         const baseEnemyCount = 2 + Math.floor(i / 5); // Increase base enemy count every 5 waves
-        const enemyTypes = Object.keys(enemyDefinitions).length;
+
+        // Determine which enemy types are available for this wave
+        const availableEnemies = enemyProgression.filter(ep => i < ep.untilWave).map(ep => ep.id);
 
         for (let j = 0; j < baseEnemyCount; j++) {
-            const enemyId = (j % enemyTypes) + 1; // Cycle through enemy types
+            const enemyId = availableEnemies[j % availableEnemies.length]; // Cycle through available enemy types
             const count = 1 + Math.floor(i / 10); // Increase count every 10 waves
             enemyConfigs.push(`${enemyId}.${count}`);
         }
