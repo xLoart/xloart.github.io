@@ -9,14 +9,23 @@ class Wave {
             const [id, count] = config.split('.');
             for (let i = 0; i < parseInt(count); i++) {
                 // Randomize initial positions for demonstration
-                const x = Math.random() * 800;
-                const y = Math.random() * 600;
-                // Ensure enemies do not spawn within the no-spawn radius
+                let x, y;
                 const noSpawnRadius = 100;
-                const distanceToPlayer = Math.sqrt((x - player.x) ** 2 + (y - player.y) ** 2);
-                if (distanceToPlayer > noSpawnRadius) {
-                    enemies.push(createEnemy(parseInt(id), x, y));
+                let distanceToPlayer;
+                do {
+                    x = Math.random() * 800;
+                    y = Math.random() * 600;
+                    distanceToPlayer = Math.sqrt((x - player.x) ** 2 + (y - player.y) ** 2);
+                } while (distanceToPlayer <= noSpawnRadius);
+
+                // If the enemy is within the no-spawn radius, reposition it off-screen
+                if (distanceToPlayer <= noSpawnRadius) {
+                    const angle = Math.random() * Math.PI * 2;
+                    x = player.x + Math.cos(angle) * (noSpawnRadius + 50);
+                    y = player.y + Math.sin(angle) * (noSpawnRadius + 50);
                 }
+
+                enemies.push(createEnemy(parseInt(id), x, y));
             }
         });
         return enemies;
