@@ -19,7 +19,12 @@ class Wave {
                 } while (distanceToPlayer <= noSpawnRadius);
 
 
-                enemies.push(createEnemy(parseInt(id), x, y, waveNumber));
+                const enemy = createEnemy(parseInt(id), x, y, waveNumber);
+                if (enemy) {
+                    enemies.push(enemy);
+                } else {
+                    console.error(`Failed to create enemy with ID: ${id}`);
+                }
             }
         });
         return enemies;
