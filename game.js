@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('optionsButton').addEventListener('click', showOptions);
 });
 
-let player = { x: 400, y: 300, size: 20, speed: 5, health: 100 }; // Add health property
+let player = { x: 400, y: 300, size: 20, speed: 5, health: 10 }; // Change health to 10
 let projectiles = [];
 let keys = {};
 let showNoSpawnArea = true; // Variable to toggle the visibility of the no-spawn area
@@ -117,10 +117,23 @@ function draw() {
         ctx.fillText('Click to return to the main menu', canvas.width / 2, canvas.height / 2 + 50);
         return; // Stop drawing other elements
     }
+    // Draw player
     ctx.fillStyle = 'blue';
     ctx.fillRect(player.x - player.size / 2, player.y - player.size / 2, player.size, player.size);
 
-    // Draw projectiles
+    // Draw player health bar
+    ctx.fillStyle = 'red';
+    ctx.fillRect(10, 10, 100, 10); // Background bar
+    ctx.fillStyle = 'green';
+    ctx.fillRect(10, 10, (player.health / 10) * 100, 10); // Health bar
+
+    // Draw wave counter
+    ctx.fillStyle = 'white';
+    ctx.font = '20px sans-serif';
+    ctx.fillText(`Wave: ${currentWaveIndex + 1}`, canvas.width - 100, 30);
+
+    // Draw remaining enemies
+    ctx.fillText(`Enemies: ${enemies.length}`, canvas.width - 100, 60);
     ctx.fillStyle = 'red';
     projectiles.forEach(proj => {
         ctx.fillRect(proj.x - 2, proj.y - 2, 4, 4);
