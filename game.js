@@ -1,11 +1,19 @@
 const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
+let ctx;
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    ctx = canvas.getContext('2d');
+});
 
 let player = { x: 400, y: 300, size: 20, speed: 5 };
 let projectiles = [];
 let keys = {};
 let mouse = { x: 0, y: 0 };
 let lastSaveTime = 0;
+
+import { wave1, wave2 } from './waves.js';
+
+let enemies = [...wave1.enemies, ...wave2.enemies];
 
 window.startNewGame = function() {
     document.getElementById('menu').style.display = 'none';
