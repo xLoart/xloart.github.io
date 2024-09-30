@@ -68,10 +68,13 @@ function update() {
         // Check for collision with player
         if (Math.abs(enemy.x - player.x) < player.size / 2 + 10 &&
             Math.abs(enemy.y - player.y) < player.size / 2 + 10) {
-            player.health -= enemyDefinitions[enemy.id].strength; // Apply damage
-            if (player.health <= 0) {
-                player.health = 0;
-                isGameOver = true; // Set game over state
+            if (currentTime - enemy.lastAttackTime >= enemy.attackCooldown) {
+                player.health -= enemyDefinitions[enemy.id].strength; // Apply damage
+                enemy.lastAttackTime = currentTime; // Update last attack time
+                if (player.health <= 0) {
+                    player.health = 0;
+                    isGameOver = true; // Set game over state
+                }
             }
         }
     });
