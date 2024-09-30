@@ -33,6 +33,8 @@ window.startNewGame = function() {
     document.getElementById('menu').style.display = 'none';
     canvas.style.display = 'block';
     waves = initializeWaves(player);
+    currentWaveIndex = 0; // Reset wave index
+    enemies = waves[currentWaveIndex].enemies; // Initialize enemies for the first wave
     requestAnimationFrame(gameLoop);
 }
 
@@ -117,6 +119,7 @@ function update() {
     });
 
     if (enemies.length === 0 && currentWaveIndex < waves.length) {
+        console.log(`Starting wave ${currentWaveIndex + 1} with ${waves[currentWaveIndex].enemies.length} enemies.`);
         enemies = waves[currentWaveIndex].enemies;
         currentWaveIndex++;
     }

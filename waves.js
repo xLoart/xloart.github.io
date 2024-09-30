@@ -18,12 +18,6 @@ class Wave {
                     distanceToPlayer = Math.sqrt((x - player.x) ** 2 + (y - player.y) ** 2);
                 } while (distanceToPlayer <= noSpawnRadius);
 
-                // If the enemy is within the no-spawn radius, reposition it off-screen
-                if (distanceToPlayer <= noSpawnRadius) {
-                    const angle = Math.random() * Math.PI * 2;
-                    x = player.x + Math.cos(angle) * (noSpawnRadius + 50);
-                    y = player.y + Math.sin(angle) * (noSpawnRadius + 50);
-                }
 
                 enemies.push(createEnemy(parseInt(id), x, y));
             }
