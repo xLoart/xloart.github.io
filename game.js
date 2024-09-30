@@ -96,6 +96,8 @@ function update() {
         fireProjectile();
         lastFireTime = currentTime;
     }
+
+    enemies.forEach(enemy => {
         enemy.moveTowards(player.x, player.y);
 
         // Check for collision with player
