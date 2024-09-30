@@ -82,9 +82,9 @@ function update() {
         }
     });
 
-    if (enemies.length === 0) {
-        // Logic to spawn the next wave
-        // Example: wave2.spawnEnemies();
+    if (enemies.length === 0 && currentWaveIndex < waves.length) {
+        enemies = waves[currentWaveIndex].enemies;
+        currentWaveIndex++;
     }
 }
 
