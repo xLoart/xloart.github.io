@@ -1,5 +1,3 @@
-import Enemy from './enemies.js';
-
 class Wave {
     constructor(enemies) {
         this.enemies = enemies;
@@ -25,7 +23,7 @@ const wave2 = new Wave([
     new Enemy(300, 100, 150, 3, 'orange')
 ]);
 
-export { wave1, wave2 };
+let enemies = [...wave1.enemies, ...wave2.enemies];
 class Wave {
     constructor(enemies) {
         this.enemies = enemies;
