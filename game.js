@@ -13,6 +13,8 @@ function isMobileDevice() {
 let joystick = { x: 0, y: 0, active: false };
 
 window.addEventListener('DOMContentLoaded', (event) => {
+    resizeCanvas(); // Set initial canvas size
+
     if (isMobileDevice()) {
         document.getElementById('joystickContainer').style.display = 'block';
 
@@ -57,6 +59,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('loadGameButton').addEventListener('click', loadGame);
     document.getElementById('optionsButton').addEventListener('click', showOptions);
 });
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', resizeCanvas);
 
 let player = { x: 400, y: 300, size: 20, speed: 5, health: 10, exp: 0, level: 1 };
 let projectiles = [];
