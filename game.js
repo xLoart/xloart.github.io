@@ -14,56 +14,6 @@ let keys = {};
 let mouse = { x: 0, y: 0 };
 let lastSaveTime = 0;
 
-class Enemy {
-    constructor(x, y, health, speed, color) {
-        this.x = x;
-        this.y = y;
-        this.health = health;
-        this.speed = speed;
-        this.color = color;
-    }
-
-    moveTowards(targetX, targetY) {
-        const angle = Math.atan2(targetY - this.y, targetX - this.x);
-        this.x += Math.cos(angle) * this.speed;
-        this.y += Math.sin(angle) * this.speed;
-    }
-
-    takeDamage(amount) {
-        this.health -= amount;
-        if (this.health <= 0) {
-            this.health = 0;
-            // Handle enemy death if needed
-        }
-    }
-}
-
-class Wave {
-    constructor(enemies) {
-        this.enemies = enemies;
-    }
-
-    spawnEnemies() {
-        // Logic to spawn enemies on the canvas
-        this.enemies.forEach(enemy => {
-            // Initialize enemy position and add to game
-        });
-    }
-}
-
-const wave1 = new Wave([
-    new Enemy(100, 100, 100, 2, 'red'),
-    new Enemy(200, 100, 100, 2, 'green'),
-    new Enemy(300, 100, 100, 2, 'blue')
-]);
-
-const wave2 = new Wave([
-    new Enemy(100, 100, 150, 3, 'yellow'),
-    new Enemy(200, 100, 150, 3, 'purple'),
-    new Enemy(300, 100, 150, 3, 'orange')
-]);
-
-let enemies = [...wave1.enemies, ...wave2.enemies];
 
 window.startNewGame = function() {
     document.getElementById('menu').style.display = 'none';
