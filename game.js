@@ -6,7 +6,52 @@ const fireCooldown = 300; // Cooldown in milliseconds for holding fire
 let isGameOver = false; // Track game over state
 let waves = [];
 
+function isMobileDevice() {
+    return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+let joystick = { x: 0, y: 0, active: false };
+
 window.addEventListener('DOMContentLoaded', (event) => {
+    if (isMobileDevice()) {
+        document.getElementById('joystickContainer').style.display = 'block';
+
+        const joystickContainer = document.getElementById('joystickContainer');
+        const joystickElement = document.getElementById('joystick');
+
+        joystickContainer.addEventListener('touchstart', (e) => {
+            joystick.active = true;
+            updateJoystickPosition(e.touches[0]);
+        });
+
+        joystickContainer.addEventListener('touchmove', (e) => {
+            if (joystick.active) {
+                updateJoystickPosition(e.touches[0]);
+            }
+        });
+
+        joystickContainer.addEventListener('touchend', () => {
+            joystick.active = false;
+            joystick.x = 0;
+            joystick.y = 0;
+            joystickElement.style.top = '30px';
+            joystickElement.style.left = '30px';
+        });
+
+        function updateJoystickPosition(touch) {
+            const rect = joystickContainer.getBoundingClientRect();
+            const offsetX = touch.clientX - rect.left - 50;
+            const offsetY = touch.clientY - rect.top - 50;
+            const distance = Math.min(Math.sqrt(offsetX * offsetX + offsetY * offsetY), 50);
+            const angle = Math.atan2(offsetY, offsetX);
+
+            joystick.x = Math.cos(angle) * distance;
+            joystick.y = Math.sin(angle) * distance;
+
+            joystickElement.style.left = `${50 + joystick.x}px`;
+            joystickElement.style.top = `${50 + joystick.y}px`;
+        }
+    }
     ctx = canvas.getContext('2d');
     document.getElementById('newGameButton').addEventListener('click', startNewGame);
     document.getElementById('loadGameButton').addEventListener('click', loadGame);
@@ -113,10 +158,15 @@ function update() {
             }
         }
     });
-    if (keys['arrowup'] || keys['w']) player.y = Math.max(player.y - player.speed, player.size / 2);
-    if (keys['arrowdown'] || keys['s']) player.y = Math.min(player.y + player.speed, canvas.height - player.size / 2);
-    if (keys['arrowleft'] || keys['a']) player.x = Math.max(player.x - player.speed, player.size / 2);
-    if (keys['arrowright'] || keys['d']) player.x = Math.min(player.x + player.speed, canvas.width - player.size / 2);
+    if (isMobileDevice() && joystick.active) {
+        player.x = Math.max(Math.min(player.x + joystick.x * 0.1, canvas.width - player.size / 2), player.size / 2);
+        player.y = Math.max(Math.min(player.y + joystick.y * 0.1, canvas.height - player.size / 2), player.size / 2);
+    } else {
+        if (keys['arrowup'] || keys['w']) player.y = Math.max(player.y - player.speed, player.size / 2);
+        if (keys['arrowdown'] || keys['s']) player.y = Math.min(player.y + player.speed, canvas.height - player.size / 2);
+        if (keys['arrowleft'] || keys['a']) player.x = Math.max(player.x - player.speed, player.size / 2);
+        if (keys['arrowright'] || keys['d']) player.x = Math.min(player.x + player.speed, canvas.width - player.size / 2);
+    }
 
     projectiles.forEach((proj, projIndex) => {
         proj.x += proj.vx;

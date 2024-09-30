@@ -8,6 +8,27 @@ body {
     background-color: #333;
 }
 
+#joystickContainer {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    touch-action: none;
+}
+
+#joystick {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    top: 30px;
+    left: 30px;
+}
+
 #menu {
     display: flex;
     flex-direction: column;
