@@ -24,6 +24,7 @@ class Wave {
                     enemies.push(enemy);
                 } else {
                     console.error(`Failed to create enemy with ID: ${id}`);
+                    console.error(`Failed to create enemy with ID: ${id}`);
                 }
             }
         });

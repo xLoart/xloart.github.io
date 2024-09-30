@@ -78,6 +78,9 @@ function update() {
     const currentTime = Date.now(); // Get the current time in milliseconds
 
     console.log(`Drawing ${enemies.length} enemies.`);
+    enemies.forEach((enemy, index) => {
+        console.log(`Enemy ${index}: Position (${enemy.x}, ${enemy.y}), Health: ${enemy.health}`);
+    });
     enemies.forEach(enemy => {
         enemy.moveTowards(player.x, player.y);
 
