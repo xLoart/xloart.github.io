@@ -11,6 +11,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
 let player = { x: 400, y: 300, size: 20, speed: 5 };
 let projectiles = [];
 let keys = {};
+let showNoSpawnArea = true; // Variable to toggle the visibility of the no-spawn area
+const noSpawnRadius = 100; // Radius of the no-spawn area
 let mouse = { x: 0, y: 0 };
 let lastSaveTime = 0;
 
@@ -101,7 +103,13 @@ function draw() {
         ctx.fillRect(proj.x - 2, proj.y - 2, 4, 4);
     });
 
-    // Draw enemies
+    // Draw no-spawn area if enabled
+    if (showNoSpawnArea) {
+        ctx.strokeStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.beginPath();
+        ctx.arc(player.x, player.y, noSpawnRadius, 0, Math.PI * 2);
+        ctx.stroke();
+    }
     enemies.forEach(enemy => {
         ctx.fillStyle = enemy.color;
         ctx.fillRect(enemy.x - 10, enemy.y - 10, 20, 20);

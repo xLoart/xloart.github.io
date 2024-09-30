@@ -11,7 +11,12 @@ class Wave {
                 // Randomize initial positions for demonstration
                 const x = Math.random() * 800;
                 const y = Math.random() * 600;
-                enemies.push(createEnemy(parseInt(id), x, y));
+                // Ensure enemies do not spawn within the no-spawn radius
+                const noSpawnRadius = 100;
+                const distanceToPlayer = Math.sqrt((x - player.x) ** 2 + (y - player.y) ** 2);
+                if (distanceToPlayer > noSpawnRadius) {
+                    enemies.push(createEnemy(parseInt(id), x, y));
+                }
             }
         });
         return enemies;
