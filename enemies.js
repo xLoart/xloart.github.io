@@ -27,10 +27,10 @@ class Enemy {
 
 const enemyDefinitions = {
     1: { color: 'red', speed: 1, health: 1, strength: 2, attackCooldown: 1000, exp: 10 },
-    2: { color: 'green', speed: 2, health: 2, strength: 3, attackCooldown: 800, exp: 20 },
+    2: { color: 'green', speed: 2, health: 1, strength: 2, attackCooldown: 800, exp: 20 },
     3: { color: 'blue', speed: 2, health: 2, strength: 4, attackCooldown: 600, exp: 30 },
-    4: { color: 'yellow', speed: 3, health: 2, strength: 5, attackCooldown: 500, exp: 40 },
-    5: { color: 'purple', speed: 3, health: 2, strength: 6, attackCooldown: 400, exp: 50 },
+    4: { color: 'yellow', speed: 1.2, health: 12, strength: 4, attackCooldown: 500, exp: 40 },
+    5: { color: 'purple', speed: 3, health: 6, strength: 6, attackCooldown: 400, exp: 50 },
     6: { color: 'orange', speed: 3, health: 2, strength: 7, attackCooldown: 300, exp: 60 }
 };
 
