@@ -3,7 +3,7 @@ class Wave {
         this.enemies = this.createEnemies(enemyConfigs);
     }
 
-    createEnemies(enemyConfigs) {
+    createEnemies(enemyConfigs, player) {
         const enemies = [];
         enemyConfigs.forEach(config => {
             const [id, count] = config.split('.');
@@ -30,7 +30,12 @@ class Wave {
     }
 }
 
-const waves = [
+function initializeWaves(player) {
+    return [
+        new Wave(['1.1', '2.1'], player),
+        new Wave(['3.1', '4.1'], player)
+    ];
+}
     new Wave(['1.1', '2.1']),
     new Wave(['3.1', '4.1'])
 ];

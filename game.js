@@ -1,5 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
 let ctx;
+let waves = [];
 
 window.addEventListener('DOMContentLoaded', (event) => {
     ctx = canvas.getContext('2d');
@@ -20,6 +21,7 @@ let lastSaveTime = 0;
 window.startNewGame = function() {
     document.getElementById('menu').style.display = 'none';
     canvas.style.display = 'block';
+    waves = initializeWaves(player);
     requestAnimationFrame(gameLoop);
 }
 
