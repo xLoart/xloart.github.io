@@ -23,12 +23,12 @@ class Enemy {
 }
 
 const enemyDefinitions = {
-    1: { color: 'red', speed: 2, health: 100 },
-    2: { color: 'green', speed: 2, health: 100 },
-    3: { color: 'blue', speed: 2, health: 100 },
-    4: { color: 'yellow', speed: 3, health: 150 },
-    5: { color: 'purple', speed: 3, health: 150 },
-    6: { color: 'orange', speed: 3, health: 150 }
+    1: { color: 'red', speed: 1, health: 1 },
+    2: { color: 'green', speed: 2, health: 2 },
+    3: { color: 'blue', speed: 2, health: 2 },
+    4: { color: 'yellow', speed: 3, health: 2 },
+    5: { color: 'purple', speed: 3, health: 2 },
+    6: { color: 'orange', speed: 3, health: 2 }
 };
 
 function createEnemy(id, x, y) {
