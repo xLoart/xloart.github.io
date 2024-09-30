@@ -1,5 +1,8 @@
 const canvas = document.getElementById('gameCanvas');
 let ctx;
+let isMouseDown = false;
+let lastFireTime = 0;
+const fireCooldown = 300; // Cooldown in milliseconds for holding fire
 let isGameOver = false; // Track game over state
 let waves = [];
 
@@ -77,7 +80,11 @@ function update() {
 
     const currentTime = Date.now(); // Get the current time in milliseconds
 
-    enemies.forEach(enemy => {
+    // Handle firing when the mouse is held down
+    if (isMouseDown && currentTime - lastFireTime >= fireCooldown) {
+        fireProjectile();
+        lastFireTime = currentTime;
+    }
         enemy.moveTowards(player.x, player.y);
 
         // Check for collision with player
@@ -191,18 +198,19 @@ canvas.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX - rect.left;
     mouse.y = e.clientY - rect.top;
 });
+canvas.addEventListener('mousedown', () => {
+    isMouseDown = true;
+});
+
+canvas.addEventListener('mouseup', () => {
+    isMouseDown = false;
+});
+
 canvas.addEventListener('click', () => {
     if (isGameOver) {
         isGameOver = false; // Reset game over state
         window.location.reload(); // Reload to return to the main menu
     } else {
-        const angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
-        const speed = 10;
-        projectiles.push({
-            x: player.x,
-            y: player.y,
-            vx: Math.cos(angle) * speed,
-            vy: Math.sin(angle) * speed
-        });
+        fireProjectile();
     }
 });
