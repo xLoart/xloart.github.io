@@ -63,13 +63,29 @@ function update() {
     if (keys['ArrowLeft'] || keys['a']) player.x -= player.speed;
     if (keys['ArrowRight'] || keys['d']) player.x += player.speed;
 
-    projectiles.forEach((proj, index) => {
+    projectiles.forEach((proj, projIndex) => {
         proj.x += proj.vx;
         proj.y += proj.vy;
         if (proj.x < 0 || proj.x > canvas.width || proj.y < 0 || proj.y > canvas.height) {
-            projectiles.splice(index, 1);
+            projectiles.splice(projIndex, 1);
+        } else {
+            enemies.forEach((enemy, enemyIndex) => {
+                if (proj.x > enemy.x - 10 && proj.x < enemy.x + 10 &&
+                    proj.y > enemy.y - 10 && proj.y < enemy.y + 10) {
+                    enemy.takeDamage(1);
+                    projectiles.splice(projIndex, 1);
+                    if (enemy.health <= 0) {
+                        enemies.splice(enemyIndex, 1);
+                    }
+                }
+            });
         }
     });
+
+    if (enemies.length === 0) {
+        // Logic to spawn the next wave
+        // Example: wave2.spawnEnemies();
+    }
 }
 
 function draw() {
