@@ -62,6 +62,8 @@ function gameLoop(timestamp) {
 function update() {
     if (isGameOver) return; // Stop updating if the game is over
 
+    const currentTime = Date.now(); // Get the current time in milliseconds
+
     enemies.forEach(enemy => {
         enemy.moveTowards(player.x, player.y);
 
