@@ -10,6 +10,7 @@ function isMobileDevice() {
     return /Mobi|Android/i.test(navigator.userAgent);
 }
 
+const touches = {};
 let joystick = { x: 0, y: 0, active: false };
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -22,37 +23,50 @@ window.addEventListener('DOMContentLoaded', (event) => {
         const joystickElement = document.getElementById('joystick');
 
         joystickContainer.addEventListener('touchstart', (e) => {
-            joystick.active = true;
-            updateJoystickPosition(e.touches[0]);
+            Array.from(e.changedTouches).forEach(touch => {
+                touches[touch.identifier] = touch;
+                if (!joystick.active) {
+                    joystick.active = true;
+                    updateJoystickPosition(touch);
+                }
+            });
         });
 
         joystickContainer.addEventListener('touchmove', (e) => {
-            if (joystick.active) {
-                updateJoystickPosition(e.touches[0]);
-            }
+            Array.from(e.changedTouches).forEach(touch => {
+                if (touches[touch.identifier]) {
+                    updateJoystickPosition(touch);
+                }
+            });
         });
 
-        joystickContainer.addEventListener('touchend', () => {
-            joystick.active = false;
-            joystick.x = 0;
-            joystick.y = 0;
-            joystickElement.style.top = '30px';
-            joystickElement.style.left = '30px';
+        joystickContainer.addEventListener('touchend', (e) => {
+            Array.from(e.changedTouches).forEach(touch => {
+                delete touches[touch.identifier];
+                if (Object.keys(touches).length === 0) {
+                    joystick.active = false;
+                    joystick.x = 0;
+                    joystick.y = 0;
+                    joystickElement.style.top = '30px';
+                    joystickElement.style.left = '30px';
+                }
+            });
         });
 
-        function updateJoystickPosition(touch) {
-            const rect = joystickContainer.getBoundingClientRect();
-            const offsetX = touch.clientX - rect.left - 50;
-            const offsetY = touch.clientY - rect.top - 50;
-            const distance = Math.min(Math.sqrt(offsetX * offsetX + offsetY * offsetY), 50);
-            const angle = Math.atan2(offsetY, offsetX);
+        canvas.addEventListener('touchstart', (e) => {
+            Array.from(e.changedTouches).forEach(touch => {
+                if (!touches[touch.identifier]) {
+                    touches[touch.identifier] = touch;
+                    fireProjectile();
+                }
+            });
+        });
 
-            joystick.x = Math.cos(angle) * distance;
-            joystick.y = Math.sin(angle) * distance;
-
-            joystickElement.style.left = `${50 + joystick.x}px`;
-            joystickElement.style.top = `${50 + joystick.y}px`;
-        }
+        canvas.addEventListener('touchend', (e) => {
+            Array.from(e.changedTouches).forEach(touch => {
+                delete touches[touch.identifier];
+            });
+        });
     }
     ctx = canvas.getContext('2d');
     document.getElementById('newGameButton').addEventListener('click', startNewGame);
