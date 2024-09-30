@@ -26,6 +26,17 @@ function levelUp() {
         console.log(`Level Up! New Level: ${player.level}, Health: ${player.health}`);
     }
 }
+function fireProjectile() {
+    const angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
+    const speed = 10;
+    projectiles.push({
+        x: player.x,
+        y: player.y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed
+    });
+}
+
 let showNoSpawnArea = true; // Variable to toggle the visibility of the no-spawn area
 const noSpawnRadius = 100; // Radius of the no-spawn area
 let mouse = { x: 0, y: 0 };
