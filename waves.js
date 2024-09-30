@@ -1,6 +1,6 @@
 class Wave {
-    constructor(enemyConfigs) {
-        this.enemies = this.createEnemies(enemyConfigs);
+    constructor(enemyConfigs, player) {
+        this.enemies = this.createEnemies(enemyConfigs, player);
     }
 
     createEnemies(enemyConfigs, player) {
