@@ -40,7 +40,6 @@ function createEnemy(id, x, y, waveNumber) {
         console.error(`Enemy definition not found for ID: ${id}`);
         return null; // Return null if the definition is not found
     }
-    console.log(`Creating enemy with ID: ${id}, Position: (${x}, ${y}), Definition:`, def);
     const healthMultiplier = 1 + Math.log(waveNumber + 1) * 0.05; // Logarithmic scaling for health
     if (isNaN(healthMultiplier)) {
         console.error(`Health multiplier is NaN for waveNumber: ${waveNumber}`);
@@ -52,7 +51,6 @@ function createEnemy(id, x, y, waveNumber) {
     if (isNaN(health)) {
         console.error(`Calculated health is NaN for enemy ID: ${id}, waveNumber: ${waveNumber}`);
     }
-    console.log(`Calculated health for enemy ID: ${id}, waveNumber: ${waveNumber}: ${health}`);
     
     const enemy = new Enemy(
         x,

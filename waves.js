@@ -5,7 +5,6 @@ class Wave {
 
     createEnemies(enemyConfigs, player, waveNumber) {
         const enemies = [];
-        console.log(`Creating enemies for wave ${waveNumber} with config:`, enemyConfigs);
         enemyConfigs.forEach(config => {
             const [id, count] = config.split('.');
             for (let i = 0; i < parseInt(count); i++) {
