@@ -42,9 +42,18 @@ function createEnemy(id, x, y, waveNumber) {
     }
     console.log(`Creating enemy with ID: ${id}, Position: (${x}, ${y}), Definition:`, def);
     const healthMultiplier = 1 + Math.log(waveNumber + 1) * 0.05; // Logarithmic scaling for health
+    if (isNaN(healthMultiplier)) {
+        console.error(`Health multiplier is NaN for waveNumber: ${waveNumber}`);
+    }
     const speedMultiplier = 1 + waveNumber * 0.02; // Linear scaling for speed
     const strengthMultiplier = 1 + waveNumber * 0.03; // Linear scaling for strength
 
+    const health = def.health * healthMultiplier;
+    if (isNaN(health)) {
+        console.error(`Calculated health is NaN for enemy ID: ${id}, waveNumber: ${waveNumber}`);
+    }
+    console.log(`Calculated health for enemy ID: ${id}, waveNumber: ${waveNumber}: ${health}`);
+    
     const enemy = new Enemy(
         x,
         y,

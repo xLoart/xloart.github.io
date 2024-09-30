@@ -42,8 +42,8 @@ class Wave {
 
 function initializeWaves(player) {
     return [
-        new Wave(['1.1', '2.1'], player), // Wave 1: 1 red enemy, 1 green enemy
-        new Wave(['3.1', '4.1'], player)  // Wave 2: 1 blue enemy, 1 yellow enemy
+        new Wave(['1.1', '2.1'], player, 1), // Wave 1: 1 red enemy, 1 green enemy
+        new Wave(['3.1', '4.1'], player, 2)  // Wave 2: 1 blue enemy, 1 yellow enemy
         // Add more waves as needed
     ];
 }
