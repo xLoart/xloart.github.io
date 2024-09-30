@@ -1,5 +1,6 @@
 const canvas = document.getElementById('gameCanvas');
 let ctx;
+let isGameOver = false; // Track game over state
 let waves = [];
 
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -59,6 +60,8 @@ function gameLoop(timestamp) {
 
 
 function update() {
+    if (isGameOver) return; // Stop updating if the game is over
+
     enemies.forEach(enemy => {
         enemy.moveTowards(player.x, player.y);
 
@@ -68,9 +71,7 @@ function update() {
             player.health -= enemyDefinitions[enemy.id].strength; // Apply damage
             if (player.health <= 0) {
                 player.health = 0;
-                // Handle player death (e.g., end game, restart, etc.)
-                alert('Game Over');
-                window.location.reload(); // Simple reload to restart the game
+                isGameOver = true; // Set game over state
             }
         }
     });
@@ -107,7 +108,15 @@ function update() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw player
+    if (isGameOver) {
+        ctx.fillStyle = 'white';
+        ctx.font = '48px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Game Over', canvas.width / 2, canvas.height / 2);
+        ctx.font = '24px sans-serif';
+        ctx.fillText('Click to return to the main menu', canvas.width / 2, canvas.height / 2 + 50);
+        return; // Stop drawing other elements
+    }
     ctx.fillStyle = 'blue';
     ctx.fillRect(player.x - player.size / 2, player.y - player.size / 2, player.size, player.size);
 
@@ -144,12 +153,17 @@ canvas.addEventListener('mousemove', (e) => {
     mouse.y = e.clientY - rect.top;
 });
 canvas.addEventListener('click', () => {
-    const angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
-    const speed = 10;
-    projectiles.push({
-        x: player.x,
-        y: player.y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed
-    });
+    if (isGameOver) {
+        isGameOver = false; // Reset game over state
+        window.location.reload(); // Reload to return to the main menu
+    } else {
+        const angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
+        const speed = 10;
+        projectiles.push({
+            x: player.x,
+            y: player.y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed
+        });
+    }
 });
