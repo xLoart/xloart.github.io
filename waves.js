@@ -36,9 +36,6 @@ function initializeWaves(player) {
         new Wave(['3.1', '4.1'], player)
     ];
 }
-    new Wave(['1.1', '2.1']),
-    new Wave(['3.1', '4.1'])
-];
 
 let currentWaveIndex = 0;
 let enemies = [];
