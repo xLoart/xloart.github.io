@@ -26,13 +26,20 @@ class Enemy {
 }
 
 const enemyDefinitions = {
-    1: { color: 'red', speed: 1, health: 1, strength: 2, attackCooldown: 1000, exp: 10 },
-    2: { color: 'green', speed: 2, health: 1, strength: 2, attackCooldown: 800, exp: 20 },
-    3: { color: 'blue', speed: 2, health: 2, strength: 4, attackCooldown: 600, exp: 30 },
-    4: { color: 'yellow', speed: 1.2, health: 12, strength: 4, attackCooldown: 500, exp: 40 },
-    5: { color: 'purple', speed: 3, health: 6, strength: 6, attackCooldown: 400, exp: 50 },
-    6: { color: 'orange', speed: 3, health: 2, strength: 7, attackCooldown: 300, exp: 60 }
+    1: { color: 'red', speed: 1.0, health: 1, strength: 2, attackCooldown: 1000, exp: 10 },
+    2: { color: 'green', speed: 1.2, health: 2, strength: 3, attackCooldown: 900, exp: 15 },
+    3: { color: 'blue', speed: 1.4, health: 2, strength: 4, attackCooldown: 850, exp: 20 },
+    4: { color: 'yellow', speed: 1.6, health: 3, strength: 5, attackCooldown: 800, exp: 25 },
+    5: { color: 'purple', speed: 1.8, health: 3, strength: 6, attackCooldown: 750, exp: 30 },
+    6: { color: 'orange', speed: 2.0, health: 4, strength: 7, attackCooldown: 700, exp: 35 },
+    7: { color: 'pink', speed: 2.2, health: 4, strength: 8, attackCooldown: 650, exp: 40 },
+    8: { color: 'cyan', speed: 2.4, health: 5, strength: 9, attackCooldown: 600, exp: 45 },
+    9: { color: 'magenta', speed: 2.6, health: 5, strength: 10, attackCooldown: 550, exp: 50 },
+    10: { color: 'lime', speed: 2.8, health: 6, strength: 11, attackCooldown: 500, exp: 55 },
+    11: { color: 'teal', speed: 3.0, health: 6, strength: 12, attackCooldown: 450, exp: 60 },
+    12: { color: 'violet', speed: 3.2, health: 7, strength: 13, attackCooldown: 400, exp: 65 }
 };
+
 
 function createEnemy(id, x, y, waveNumber) {
     const def = enemyDefinitions[id];

@@ -38,7 +38,7 @@ function fireProjectile() {
 }
 
 let showNoSpawnArea = true; // Variable to toggle the visibility of the no-spawn area
-const noSpawnRadius = 100; // Radius of the no-spawn area
+const noSpawnRadius = 200; // Radius of the no-spawn area
 let mouse = { x: 0, y: 0 };
 let lastSaveTime = 0;
 
