@@ -35,17 +35,21 @@ const enemyDefinitions = {
 };
 
 function createEnemy(id, x, y, waveNumber) {
-    const difficultyMultiplier = 1 + waveNumber * 0.1; // Increase difficulty by 10% per wave
     const def = enemyDefinitions[id];
+    const healthMultiplier = 1 + Math.log(waveNumber + 1) * 0.05; // Logarithmic scaling for health
+    const speedMultiplier = 1 + waveNumber * 0.02; // Linear scaling for speed
+    const strengthMultiplier = 1 + waveNumber * 0.03; // Linear scaling for strength
+
     const enemy = new Enemy(
         x,
         y,
-        def.health * difficultyMultiplier,
-        def.speed * difficultyMultiplier,
+        def.health * healthMultiplier,
+        def.speed * speedMultiplier,
         def.color,
         id
     );
-    enemy.attackCooldown = def.attackCooldown; // Set attack cooldown
+    enemy.attackCooldown = def.attackCooldown;
+    enemy.strength = def.strength * strengthMultiplier; // Scale strength
     return enemy;
 }
 
