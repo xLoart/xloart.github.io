@@ -10,9 +10,19 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('optionsButton').addEventListener('click', showOptions);
 });
 
-let player = { x: 400, y: 300, size: 20, speed: 5, health: 10 }; // Change health to 10
+let player = { x: 400, y: 300, size: 20, speed: 5, health: 10, exp: 0, level: 1 };
 let projectiles = [];
 let keys = {};
+
+function levelUp() {
+    const expToNextLevel = player.level * 100; // Example: 100 EXP per level
+    if (player.exp >= expToNextLevel) {
+        player.level++;
+        player.exp -= expToNextLevel;
+        player.health += 5; // Increase health by 5 for each level-up
+        console.log(`Level Up! New Level: ${player.level}, Health: ${player.health}`);
+    }
+}
 let showNoSpawnArea = true; // Variable to toggle the visibility of the no-spawn area
 const noSpawnRadius = 100; // Radius of the no-spawn area
 let mouse = { x: 0, y: 0 };
@@ -97,7 +107,9 @@ function update() {
                     enemy.takeDamage(1);
                     projectiles.splice(projIndex, 1);
                     if (enemy.health <= 0) {
+                        player.exp += enemyDefinitions[enemy.id].exp; // Award EXP
                         enemies.splice(enemyIndex, 1);
+                        levelUp(); // Check for level-up
                     }
                 }
             });
@@ -132,7 +144,11 @@ function draw() {
     ctx.fillStyle = 'green';
     ctx.fillRect(10, 10, (player.health / 10) * 100, 10); // Health bar
 
-    // Draw wave counter
+    // Draw player level and EXP
+    ctx.fillStyle = 'white';
+    ctx.font = '20px sans-serif';
+    ctx.fillText(`Level: ${player.level}`, 10, 40);
+    ctx.fillText(`EXP: ${player.exp}`, 10, 60);
     ctx.fillStyle = 'white';
     ctx.font = '20px sans-serif';
     ctx.fillText(`Wave: ${currentWaveIndex + 1}`, canvas.width - 100, 30);
