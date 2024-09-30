@@ -25,7 +25,7 @@ class Wave {
     }
 }
 
-const wave1 = new Wave(['1.3', '2.2']);
-const wave2 = new Wave(['3.1', '4.2']);
+const wave1 = new Wave(['1.1', '2.1']);
+const wave2 = new Wave(['3.1', '4.1']);
 
 let enemies = [...wave1.enemies, ...wave2.enemies];
