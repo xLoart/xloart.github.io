@@ -10,7 +10,7 @@ class Wave {
             for (let i = 0; i < parseInt(count); i++) {
                 // Randomize initial positions for demonstration
                 let x, y;
-                const noSpawnRadius = 100;
+                const noSpawnRadius = 200;
                 let distanceToPlayer;
                 do {
                     x = Math.random() * 800;
