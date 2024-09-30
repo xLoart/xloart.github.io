@@ -113,10 +113,10 @@ function update() {
             }
         }
     });
-    if (keys['ArrowUp'] || keys['w']) player.y = Math.max(player.y - player.speed, player.size / 2);
-    if (keys['ArrowDown'] || keys['s']) player.y = Math.min(player.y + player.speed, canvas.height - player.size / 2);
-    if (keys['ArrowLeft'] || keys['a']) player.x = Math.max(player.x - player.speed, player.size / 2);
-    if (keys['ArrowRight'] || keys['d']) player.x = Math.min(player.x + player.speed, canvas.width - player.size / 2);
+    if (keys['arrowup'] || keys['w']) player.y = Math.max(player.y - player.speed, player.size / 2);
+    if (keys['arrowdown'] || keys['s']) player.y = Math.min(player.y + player.speed, canvas.height - player.size / 2);
+    if (keys['arrowleft'] || keys['a']) player.x = Math.max(player.x - player.speed, player.size / 2);
+    if (keys['arrowright'] || keys['d']) player.x = Math.min(player.x + player.speed, canvas.width - player.size / 2);
 
     projectiles.forEach((proj, projIndex) => {
         proj.x += proj.vx;
@@ -204,8 +204,8 @@ function draw() {
     ctx.stroke();
 }
 
-window.addEventListener('keydown', (e) => keys[e.key] = true);
-window.addEventListener('keyup', (e) => keys[e.key] = false);
+window.addEventListener('keydown', (e) => keys[e.key.toLowerCase()] = true);
+window.addEventListener('keyup', (e) => keys[e.key.toLowerCase()] = false);
 canvas.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
     mouse.x = e.clientX - rect.left;
