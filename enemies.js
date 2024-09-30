@@ -34,9 +34,17 @@ const enemyDefinitions = {
     6: { color: 'orange', speed: 3, health: 2, strength: 7, attackCooldown: 300, exp: 60 }
 };
 
-function createEnemy(id, x, y) {
+function createEnemy(id, x, y, waveNumber) {
+    const difficultyMultiplier = 1 + waveNumber * 0.1; // Increase difficulty by 10% per wave
     const def = enemyDefinitions[id];
-    const enemy = new Enemy(x, y, def.health, def.speed, def.color, id);
+    const enemy = new Enemy(
+        x,
+        y,
+        def.health * difficultyMultiplier,
+        def.speed * difficultyMultiplier,
+        def.color,
+        id
+    );
     enemy.attackCooldown = def.attackCooldown; // Set attack cooldown
     return enemy;
 }

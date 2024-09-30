@@ -1,9 +1,9 @@
 class Wave {
-    constructor(enemyConfigs, player) {
-        this.enemies = this.createEnemies(enemyConfigs, player);
+    constructor(enemyConfigs, player, waveNumber) {
+        this.enemies = this.createEnemies(enemyConfigs, player, waveNumber);
     }
 
-    createEnemies(enemyConfigs, player) {
+    createEnemies(enemyConfigs, player, waveNumber) {
         const enemies = [];
         enemyConfigs.forEach(config => {
             const [id, count] = config.split('.');
@@ -40,10 +40,21 @@ class Wave {
 }
 
 function initializeWaves(player) {
-    return [
-        new Wave(['1.1', '2.1'], player),
-        new Wave(['3.1', '4.1'], player)
-    ];
+    const waves = [];
+    for (let i = 0; i < 50; i++) {
+        const enemyConfigs = [];
+        const baseEnemyCount = 2 + Math.floor(i / 5); // Increase base enemy count every 5 waves
+        const enemyTypes = Object.keys(enemyDefinitions).length;
+
+        for (let j = 0; j < baseEnemyCount; j++) {
+            const enemyId = (j % enemyTypes) + 1; // Cycle through enemy types
+            const count = 1 + Math.floor(i / 10); // Increase count every 10 waves
+            enemyConfigs.push(`${enemyId}.${count}`);
+        }
+
+        waves.push(new Wave(enemyConfigs, player, i));
+    }
+    return waves;
 }
 
 let currentWaveIndex = 0;
