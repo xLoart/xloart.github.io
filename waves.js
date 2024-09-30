@@ -19,7 +19,7 @@ class Wave {
                 } while (distanceToPlayer <= noSpawnRadius);
 
 
-                enemies.push(createEnemy(parseInt(id), x, y));
+                enemies.push(createEnemy(parseInt(id), x, y, waveNumber));
             }
         });
         return enemies;

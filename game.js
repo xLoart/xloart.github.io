@@ -32,6 +32,7 @@ let lastSaveTime = 0;
 window.startNewGame = function() {
     document.getElementById('menu').style.display = 'none';
     canvas.style.display = 'block';
+    console.log('Canvas is now visible.');
     waves = initializeWaves(player);
     currentWaveIndex = 0; // Reset wave index
     enemies = waves[currentWaveIndex].enemies; // Initialize enemies for the first wave
@@ -76,6 +77,7 @@ function update() {
 
     const currentTime = Date.now(); // Get the current time in milliseconds
 
+    console.log(`Drawing ${enemies.length} enemies.`);
     enemies.forEach(enemy => {
         enemy.moveTowards(player.x, player.y);
 
@@ -121,6 +123,7 @@ function update() {
     if (enemies.length === 0 && currentWaveIndex < waves.length) {
         console.log(`Starting wave ${currentWaveIndex + 1} with ${waves[currentWaveIndex].enemies.length} enemies.`);
         enemies = waves[currentWaveIndex].enemies;
+        console.log(`Wave ${currentWaveIndex + 1} initialized with ${enemies.length} enemies.`);
         currentWaveIndex++;
     }
 }
