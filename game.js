@@ -113,10 +113,10 @@ function update() {
             }
         }
     });
-    if (keys['ArrowUp'] || keys['w']) player.y -= player.speed;
-    if (keys['ArrowDown'] || keys['s']) player.y += player.speed;
-    if (keys['ArrowLeft'] || keys['a']) player.x -= player.speed;
-    if (keys['ArrowRight'] || keys['d']) player.x += player.speed;
+    if (keys['ArrowUp'] || keys['w']) player.y = Math.max(player.y - player.speed, player.size / 2);
+    if (keys['ArrowDown'] || keys['s']) player.y = Math.min(player.y + player.speed, canvas.height - player.size / 2);
+    if (keys['ArrowLeft'] || keys['a']) player.x = Math.max(player.x - player.speed, player.size / 2);
+    if (keys['ArrowRight'] || keys['d']) player.x = Math.min(player.x + player.speed, canvas.width - player.size / 2);
 
     projectiles.forEach((proj, projIndex) => {
         proj.x += proj.vx;
