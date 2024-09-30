@@ -3,6 +3,9 @@ let ctx;
 
 window.addEventListener('DOMContentLoaded', (event) => {
     ctx = canvas.getContext('2d');
+    document.getElementById('newGameButton').addEventListener('click', startNewGame);
+    document.getElementById('loadGameButton').addEventListener('click', loadGame);
+    document.getElementById('optionsButton').addEventListener('click', showOptions);
 });
 
 let player = { x: 400, y: 300, size: 20, speed: 5 };
