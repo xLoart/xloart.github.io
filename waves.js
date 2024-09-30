@@ -1,6 +1,20 @@
 class Wave {
-    constructor(enemies) {
-        this.enemies = enemies;
+    constructor(enemyConfigs) {
+        this.enemies = this.createEnemies(enemyConfigs);
+    }
+
+    createEnemies(enemyConfigs) {
+        const enemies = [];
+        enemyConfigs.forEach(config => {
+            const [id, count] = config.split('.');
+            for (let i = 0; i < parseInt(count); i++) {
+                // Randomize initial positions for demonstration
+                const x = Math.random() * 800;
+                const y = Math.random() * 600;
+                enemies.push(createEnemy(parseInt(id), x, y));
+            }
+        });
+        return enemies;
     }
 
     spawnEnemies() {
@@ -11,16 +25,7 @@ class Wave {
     }
 }
 
-const wave1 = new Wave([
-    new Enemy(100, 100, 100, 2, 'red'),
-    new Enemy(200, 100, 100, 2, 'green'),
-    new Enemy(300, 100, 100, 2, 'blue')
-]);
-
-const wave2 = new Wave([
-    new Enemy(100, 100, 150, 3, 'yellow'),
-    new Enemy(200, 100, 150, 3, 'purple'),
-    new Enemy(300, 100, 150, 3, 'orange')
-]);
+const wave1 = new Wave(['1.3', '2.2']);
+const wave2 = new Wave(['3.1', '4.2']);
 
 let enemies = [...wave1.enemies, ...wave2.enemies];
