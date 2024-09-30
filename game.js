@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('optionsButton').addEventListener('click', showOptions);
 });
 
-let player = { x: 400, y: 300, size: 20, speed: 5 };
+let player = { x: 400, y: 300, size: 20, speed: 5, health: 100 }; // Add health property
 let projectiles = [];
 let keys = {};
 let showNoSpawnArea = true; // Variable to toggle the visibility of the no-spawn area
@@ -61,6 +61,18 @@ function gameLoop(timestamp) {
 function update() {
     enemies.forEach(enemy => {
         enemy.moveTowards(player.x, player.y);
+
+        // Check for collision with player
+        if (Math.abs(enemy.x - player.x) < player.size / 2 + 10 &&
+            Math.abs(enemy.y - player.y) < player.size / 2 + 10) {
+            player.health -= enemyDefinitions[enemy.id].strength; // Apply damage
+            if (player.health <= 0) {
+                player.health = 0;
+                // Handle player death (e.g., end game, restart, etc.)
+                alert('Game Over');
+                window.location.reload(); // Simple reload to restart the game
+            }
+        }
     });
     if (keys['ArrowUp'] || keys['w']) player.y -= player.speed;
     if (keys['ArrowDown'] || keys['s']) player.y += player.speed;
